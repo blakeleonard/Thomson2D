@@ -13,9 +13,9 @@ globalstep = 10;
 for zstep = 1:globalstep
 
 
-    % Initial conditions & Variable Declaration
+    	% Initial conditions & Variable Declaration
 
-    time_0 = cputime;
+    	time_0 = cputime;
 
 	N = 17;          % number of charges	
 	
@@ -31,7 +31,7 @@ for zstep = 1:globalstep
 
 	infostep = 5;
     
-    metro_steps = 20;
+    	metro_steps = 20;
 	
 	change_count = 0;
 
@@ -41,7 +41,7 @@ for zstep = 1:globalstep
 
 	info_on_step = 1;
     
-    end_time = 35;
+    	end_time = 35;
 
 	
 	% Generate distribution of betas
