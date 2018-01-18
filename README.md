@@ -3,10 +3,15 @@
 A collection of five separate methods, written in MATLAB, for solving a 2D version of the [Thomson Problem.](https://en.wikipedia.org/wiki/Thomson_problem)  In this version of the problem, the goal is to determine the ground state electrostatic potential energy configuration of N number of charged particles confined to a circle of radius one.
 
 1.) Physical Model (Euler Method)
+
 2.) Metropolis 
+
 3.) Simulated Annealing
+
 4.) Replica Exchange
+
 5.) Interacting Replicas
+
 
 The evolution of complex many-body physical systems such as this are extraordinarily similar to the behavior of heuristic algorithms operating on combinatorial optimization problems.  Combinatorial optimization problems often possess a relatively large number of locally optimal pseudo-solutions, similar to the abundance of metastable energy states in complex physical systems.  This can make determination of the global optimum difficult, especially for heuristic algorithms which attempt to optimize a cost function locally (i.e. by iteratively making a small change in the parameters, testing the resulting change in the cost function, and allowing the change if the cost function is decreased or some other conditions are satisfied).
 
