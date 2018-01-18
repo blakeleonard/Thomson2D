@@ -18,10 +18,10 @@ orig_time_0 = cputime;
 
 for nstep=1:globalstep
 
-    time_0 = cputime;
+	time_0 = cputime;
 
 
-    % Generate Intial Random Distribution of Charges on disk with radius 1
+	% Generate Intial Random Distribution of Charges on disk with radius 1
 
 	% Initial conditions
 
@@ -97,7 +97,7 @@ for nstep=1:globalstep
 	disp('');
 	
 
-    % Simulated Annealing Algorithm
+	% Simulated Annealing Algorithm
 
 	% Initial Conditions and Variable Declaration
 
@@ -401,13 +401,13 @@ for nstep=1:globalstep
 
 				U_min = U;
                 
-                fprintf('Best Energy: %g \n', U_min);
+				fprintf('Best Energy: %g \n', U_min);
 	
-                disp('');
+				disp('');
         
-                fprintf('Time Elapsed: %g \n', cputime - time_0);
+				fprintf('Time Elapsed: %g \n', cputime - time_0);
         
-                disp('');
+				disp('');
 
 				for mstep = 1:N
 
@@ -456,18 +456,18 @@ for nstep=1:globalstep
 
 		end
 
-    end
+	end
 
 	fprintf('Run%g Energy: %g \n', nstep, U_min);
     
-    fprintf('Run%g time: %g \n', nstep, cputime - time_0);
+	fprintf('Run%g time: %g \n', nstep, cputime - time_0);
 
 	disp('');
 
 
 	run_energy(nstep) = U_min;
     
-    run_time(nstep) = cputime - time_0;
+	run_time(nstep) = cputime - time_0;
 	
 end
 
