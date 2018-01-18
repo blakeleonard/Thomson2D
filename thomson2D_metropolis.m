@@ -60,13 +60,13 @@ for zstep = 1:globalstep
 
 		best_xplot(istep) = position(istep, 1);
         
-        xplot(istep) = position(istep, 1);
+		xplot(istep) = position(istep, 1);
 
 		position(istep, 2 ) = polarposition(istep, 1) * sin(polarposition(istep, 2));
 
 		best_yplot(istep) = position(istep, 2);
         
-        yplot(istep) = position(istep, 2);
+		yplot(istep) = position(istep, 2);
 
 	end
 
@@ -93,13 +93,13 @@ for zstep = 1:globalstep
 	disp('');
 
 
-    % Perform Metropolis
+	% Perform Metropolis
 
 	% Initial Conditions and Variable Declaration
 
 	%beta = N / U_old;
     
-    beta = 200;
+	beta = 200;
 
 	randstep_max = 0.9;
                                                
@@ -196,79 +196,79 @@ for zstep = 1:globalstep
 
 				U = U_old;
 
-            end
+			end
 
 			U_old = U;
             
-            xplot(randcharge) = position(randcharge, 1);     
+			xplot(randcharge) = position(randcharge, 1);     
 
 			yplot(randcharge) = position(randcharge, 2);
 
 
-            if ( U < U_min )
+			if ( U < U_min )
 
-                U_min = U;
+				U_min = U;
                 
-                fprintf('Best Energy: %g \n', U_min);
+				fprintf('Best Energy: %g \n', U_min);
 	
-                disp('');
+				disp('');
         
-                fprintf('Time Elapsed: %g \n', cputime - time_0);
+				fprintf('Time Elapsed: %g \n', cputime - time_0);
         
-                disp('');
+				disp('');
                 
-                last_time = cputime - time_0;
+				last_time = cputime - time_0;
 		
-               	for mstep = 1:N
+				for mstep = 1:N
 
-                    best_xplot(mstep) = xplot(mstep);
+					best_xplot(mstep) = xplot(mstep);
 
-                    best_yplot(mstep) = yplot(mstep);
+					best_yplot(mstep) = yplot(mstep);
 
-                end
+				end
 
-            end
+			end
 
 		end
 
 
 		% Plot Charges
         
-        drawnow;
+		drawnow;
 
 		plot(best_xplot, best_yplot, '+');
         
-        if ( (cputime - time_0) - last_time > end_time )
+		if ( (cputime - time_0) - last_time > end_time )
             
-            run_time(zstep) = last_time;
+			run_time(zstep) = last_time;
             
-            run_energy(zstep) = U_min;
+			run_energy(zstep) = U_min;
             
-            fprintf('Run  Energy: %g \n', U_min);
+			fprintf('Run  Energy: %g \n', U_min);
 	
-            disp('');
+			disp('');
             
-            fprintf('Run Time: %g \n', last_time);
+			fprintf('Run Time: %g \n', last_time);
 	
-            disp('');
+			disp('');
             
-            break;
+			break;
             
-        end
+		end
 
-    end
+	end
 
 end 
 
 
 for istep = 1:globalstep
     
-    fprintf('Run %g Energy: %g \n', istep, run_energy(istep));
+	fprintf('Run %g Energy: %g \n', istep, run_energy(istep));
 	
-    disp('');
+	disp('');
     
-    fprintf('Run %g Time: %g \n', istep, run_time(istep));
+	fprintf('Run %g Time: %g \n', istep, run_time(istep));
 	
-    disp('');
+	disp('');
     
 end
