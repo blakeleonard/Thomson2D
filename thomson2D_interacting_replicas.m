@@ -57,7 +57,7 @@ for zstep = 1:globalstep
 	end
 
 	
-    	% Generate Intial Random Distribution of Charges on Disk for all replicas
+	% Generate Intial Random Distribution of Charges on Disk for all replicas
 
 	% Generate Random Matrix for initial poisitions
 
