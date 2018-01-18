@@ -57,7 +57,7 @@ for zstep = 1:globalstep
 	end
 
 	
-    % Generate Intial Random Distribution of Charges on Disk for all replicas
+    	% Generate Intial Random Distribution of Charges on Disk for all replicas
 
 	% Generate Random Matrix for initial poisitions
 
@@ -119,7 +119,7 @@ for zstep = 1:globalstep
 	end
 
 
-    % Perform Global Free Energy Alogorithm
+    	% Perform Global Free Energy Alogorithm
 
 	for istep = 1:maxstep	
 
@@ -128,129 +128,128 @@ for zstep = 1:globalstep
 
 			% Energy Minimization Step ( metro_steps on each replica per infostep on all replicas)
 			
-            for ystep = 1:metro_steps
+            		for ystep = 1:metro_steps
 
-                for rstep = 1:R
+                		for rstep = 1:R
 
 
-                    % Move a random charge by a random amount in a random direction
+                    			% Move a random charge by a random amount in a random direction
 		
-                    randchvect = randperm(N);
+                    			randchvect = randperm(N);
 
-                    randcharge = randchvect(1);
-
-
-                    rand_xstep = randstep_max * rand(1);
-
-                    if ( rand(1) < 0.5 )
-
-                        rand_xstep = rand_xstep * -1;
-
-                    end
+                    			randcharge = randchvect(1);
 
 
-                    rand_ystep = randstep_max * rand(1);
+                    			rand_xstep = randstep_max * rand(1);
 
-                    if ( rand(1) < 0.5 )
+                    			if ( rand(1) < 0.5 )
 
-                        rand_ystep = rand_ystep * -1;
+                        			rand_xstep = rand_xstep * -1;
+
+                    			end
+
+
+                    			rand_ystep = randstep_max * rand(1);
+
+                    			if ( rand(1) < 0.5 )
+
+                        			rand_ystep = rand_ystep * -1;
 	
-                    end
+                    			end
 
 
-                    oldx = xposition(rstep, randcharge);
+                    			oldx = xposition(rstep, randcharge);
 
-                    oldy = yposition(rstep, randcharge);
+                    			oldy = yposition(rstep, randcharge);
 					
 
-                    xposition(rstep, randcharge) = xposition(rstep, randcharge) + rand_xstep;
+                    			xposition(rstep, randcharge) = xposition(rstep, randcharge) + rand_xstep;
 
-                    yposition(rstep, randcharge) = yposition(rstep, randcharge) + rand_ystep;
+                    			yposition(rstep, randcharge) = yposition(rstep, randcharge) + rand_ystep;
 
 
-                    % Impose Boundary Conditions
+                    			% Impose Boundary Conditions
 
-                    d = sqrt( xposition(rstep, randcharge)^2 + yposition(rstep, randcharge)^2 );			
+                    			d = sqrt( xposition(rstep, randcharge)^2 + yposition(rstep, randcharge)^2 );			
 
-                    if ( d > 1 )
+                    			if ( d > 1 )
 
-                    	xposition(rstep, randcharge) = xposition(rstep, randcharge) / d;
+                    				xposition(rstep, randcharge) = xposition(rstep, randcharge) / d;
 
-                    	yposition(rstep, randcharge) = yposition(rstep, randcharge) / d;
+                    				yposition(rstep, randcharge) = yposition(rstep, randcharge) / d;
 
-                    end
+                    			end
 
 		
-                    % Compute Energy in units of q^2 / (4*Pi*Eps0)         
+                    			% Compute Energy in units of q^2 / (4*Pi*Eps0)         
 
-                    U(rstep) = 0;		
+                    			U(rstep) = 0;		
 
-                    for kstep=1:N
+                    			for kstep=1:N
 
-                        for lstep = (kstep+1):N
+                        			for lstep = (kstep+1):N
 			
-                        	Q = sqrt( ( xposition(rstep, kstep) - xposition(rstep, lstep) ) ^ 2 + ( yposition(rstep, kstep) - yposition(rstep, lstep) ) ^ 2 );				
+                        				Q = sqrt( ( xposition(rstep, kstep) - xposition(rstep, lstep) ) ^ 2 + ( yposition(rstep, kstep) - yposition(rstep, lstep) ) ^ 2 );				
 	
-                            U(rstep) = U(rstep) + Q ^ (-1);
+                            				U(rstep) = U(rstep) + Q ^ (-1);
 
-                        end
+                        			end
 
-                    end
+                    			end
 
 		
-                    % Compare Energies of new and old configurations & switch back if appropriate
+                    			% Compare Energies of new and old configurations & switch back if appropriate
 
-                    if ( ( exp( beta(rstep) * ( U_old(rstep) - U(rstep) ) ) ) > rand(1) )
+                    			if ( ( exp( beta(rstep) * ( U_old(rstep) - U(rstep) ) ) ) > rand(1) )
 
-                    	change_count = change_count + 1;
+                    				change_count = change_count + 1;
 
-                    else
+                    			else
 
-                    	xposition(rstep, randcharge) = oldx;
+                    				xposition(rstep, randcharge) = oldx;
 	
-                    	yposition(rstep, randcharge) = oldy;
+                    				yposition(rstep, randcharge) = oldy;
 	
-                    	U(rstep) = U_old(rstep);
+                    				U(rstep) = U_old(rstep);
 
-                    end
+                    			end
 
 		
-                    U_old(rstep) = U(rstep);
+                    			U_old(rstep) = U(rstep);
 
 
-                    % Check if Energy is minimum and archive
+                    			% Check if Energy is minimum and archive
 
-                    if U(rstep) < U_min
+                    			if U(rstep) < U_min
 
-                        U_min = U(rstep);
+                        			U_min = U(rstep);
                         
-                        fprintf('Best Energy: %g \n', U_min);
+                        			fprintf('Best Energy: %g \n', U_min);
 	
-                        disp('');
+                        			disp('');
         
-                        fprintf('Time Elapsed: %g \n', cputime - time_0);
+                        			fprintf('Time Elapsed: %g \n', cputime - time_0);
         
-                        disp('');
+                        			disp('');
                         
-                        last = cputime - time_0;
+                        			last = cputime - time_0;
 
-                        for qstep = 1:N
+                        			for qstep = 1:N
+			
+                            				best_xplot(qstep) = xposition(rstep, qstep);
 
-                            best_xplot(qstep) = xposition(rstep, qstep);
+                            				best_yplot(qstep) = yposition(rstep, qstep);
 
-                            best_yplot(qstep) = yposition(rstep, qstep);
+                        			end
 
-                        end
+                    			end
 
-                    end
+                		end
 
-                end
-
-            end
+            		end
 
 
 			% Maximize Mutual Information Step
-
 
 			% Perform Just metropolis at first, info step turning on after
 			% info_on_step's
@@ -282,7 +281,7 @@ for zstep = 1:globalstep
 					randreplica = randrepvect(1);
 
 					
-                    for qstep = 1:R-1
+                    			for qstep = 1:R-1
 
 						distance_min(qstep) = 1;
 
@@ -300,7 +299,7 @@ for zstep = 1:globalstep
 
 							if distance < distance_min(qstep)
                                 
-                                corres_charge(randrepvect(1+qstep)) = ostep;
+                                				corres_charge(randrepvect(1+qstep)) = ostep;
 
 								distance_min(qstep) = distance;
 
@@ -308,30 +307,30 @@ for zstep = 1:globalstep
 
 						end
 
-                    end
+                    			end
 
 
-                    % Calculate the average position of corresponding
-                    % charges
+                    			% Calculate the average position of corresponding
+                    			% charges
 
-                    xpos_tot = 0;
+                    			xpos_tot = 0;
                     
-                    ypos_tot = 0;
+                    			ypos_tot = 0;
                     
-                    for qstep = 1:R-1
+                    			for qstep = 1:R-1
                         
-                        xpos_tot = xpos_tot + xposition(randrepvect(1+qstep), corres_charge(randrepvect(1+qstep)));
+                        			xpos_tot = xpos_tot + xposition(randrepvect(1+qstep), corres_charge(randrepvect(1+qstep)));
                         
-                        ypos_tot = ypos_tot + yposition(randrepvect(1+qstep), corres_charge(randrepvect(1+qstep)));
-                        
-                    end
+                        			ypos_tot = ypos_tot + yposition(randrepvect(1+qstep), corres_charge(randrepvect(1+qstep)));
+                    		    
+                    			end
                     
-                    xpos_avg = xpos_tot / ( R - 1 );
+                    			xpos_avg = xpos_tot / ( R - 1 );
                     
-                    ypos_avg = ypos_tot / ( R - 1 );
+                    			ypos_avg = ypos_tot / ( R - 1 );
                     
                     
-                    % Move random charge to avg position
+                    			% Move random charge to avg position
 
 					xposition(randreplica, randcharge) = xpos_avg;
 
@@ -374,17 +373,17 @@ for zstep = 1:globalstep
 
 						U_min = U(randreplica);
                         
-                        fprintf('Best Energy: %g \n', U_min);
+                        			fprintf('Best Energy: %g \n', U_min);
 	
-                        disp('');
+                        			disp('');
         
-                        fprintf('Time Elapsed: %g \n', cputime - time_0);
+                        			fprintf('Time Elapsed: %g \n', cputime - time_0);
         
-                        disp('');
+                        			disp('');
                         
-                        last = cputime - time_0;
+                        			last = cputime - time_0;
 						
-                        for qstep = 1:N
+                        			for qstep = 1:N
 
 							best_xplot(qstep) = xposition(randreplica, qstep);
 
@@ -397,7 +396,7 @@ for zstep = 1:globalstep
 
 					U_old(randreplica) = U(randreplica);
 
-                end
+                		end
 			
 			end
 
@@ -406,33 +405,34 @@ for zstep = 1:globalstep
 
 		% Plot Charges
 
-        drawnow;
+        	drawnow;
 
 		plot(best_xplot, best_yplot, '+');
         
-        time = cputime - time_0;
+        	time = cputime - time_0;
         
-        if ( time > end_time )
+        	if ( time > end_time )
             
-            run_time(zstep) = last;
+            		run_time(zstep) = last;
             
-            run_energy(zstep) = U_min;
-            
-            fprintf('Run  Energy: %g \n', U_min);
+            		run_energy(zstep) = U_min;
+            		
+            		fprintf('Run  Energy: %g \n', U_min);
 	
-            disp('');
+            		disp('');
             
-            fprintf('Run Time: %g \n', last);
+            		fprintf('Run Time: %g \n', last);
 	
-            disp('');
+            		disp('');
             
-            break;
+            		break;
             
-        end
+        	end
 
-    end
+    	end
 
 end
+
 
 for istep = 1:globalstep
     
