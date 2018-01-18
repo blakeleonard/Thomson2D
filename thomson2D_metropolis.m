@@ -13,17 +13,17 @@ globalstep = 10;
 for zstep = 1:globalstep
 
 
-    % Generate Intial Random Distribution of Charges on disk
+	% Generate Intial Random Distribution of Charges on disk
 
 	% Initial conditions
 
 	N = 17;      % number of charges	
 	
-    U_min = 10000;
+	U_min = 10000;
     
-    time_0 = cputime;
+	time_0 = cputime;
     
-    end_time = 5;
+	end_time = 5;
 
 	
 	% Generate N * 2 matrix of charge positions 
