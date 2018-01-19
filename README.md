@@ -21,7 +21,11 @@ Similar to thermal systems and heuristic optimization algorithms, modeling of th
 
 In the case of the 2D Thomson Problem, the system will begin to exhibit geometrical meta-stable states as the number of particles is increased.  At small numbers, the particles will line up along the circular boundary.  However, upon reaching a critical number, the energy can be lowered by expelling one or more particles to the center of the circle.  Ground states consisting of a certain number of particles expelled can be separated from meta-stable states consisting of a different number by very small amounts of energy, and yet the barrier between them could be enormous, as it would be the energy required to rearrange all charges.
 
-For instance, for N = 17 particles, the ground state energy is U_0 = 133.822 with 2 expelled, while U_2 = 134.39 with 3 expelled (in units of q^2 / 4*Pi*Eps) resulting in a difference of 0.4%.
+For instance, for N = 17 particles, the ground state energy is U_0 = 133.822 with 2 expelled, while U_2 = 134.39 with 3 expelled (in units of q^2 / 4*Pi*Eps) resulting in a difference of only 0.4%.
+
+Created by Blake Leonard
+
+blake@leonardlabs.net
 
 
 
