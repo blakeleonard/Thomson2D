@@ -3,7 +3,7 @@
 % Physics Department
 % Washington University in St. Louis
 
-% Interacting Replica Technique applied to 2D Thomson Problem with radius one
+% Simulated Annealing algorithm applied to 2D Thomson Problem with radius one
          
 
 clear;
